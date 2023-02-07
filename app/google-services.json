@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "664570115392",
+    "project_id": "w23timetrackerclass",
+    "storage_bucket": "w23timetrackerclass.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664570115392:android:a2e87f58a85729c4f2b6a5",
+        "android_client_info": {
+          "package_name": "com.constantlearningdad.w23timetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664570115392-qh0s6f410bsj0ck92jg40aoosc5b80rg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhYydgbiiDB_ntb3352WxVMUxSj3eG_Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664570115392-qh0s6f410bsj0ck92jg40aoosc5b80rg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
