@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.constantlearningdad.w23timetracker.databinding.ActivityCreateProjectBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -64,5 +65,12 @@ class CreateProjectActivity : AppCompatActivity() {
                 Toast.makeText(this, "name and description are both required",Toast.LENGTH_LONG).show()
             }
         }
+
+        //This will be used to connect the RecyclerView, adapeter and viewModel together
+        val viewModel : ProjectViewModel by viewModels()
+        viewModel.getProjects().observe(this, {
+            for (project in it)
+                Log.i("DB_Response","CreateProjectActivity: $project")
+        })
     }
 }
