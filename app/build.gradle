@@ -50,4 +50,12 @@ dependencies {
 
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
 
+    //these dependencies are required for the viewmodel which gives us the ability to
+    //have data persits even if an activity is closed (i.e. rotating the device)
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
 }

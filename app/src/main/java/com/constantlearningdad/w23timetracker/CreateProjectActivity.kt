@@ -5,15 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.constantlearningdad.w23timetracker.databinding.ActivityCreateProjectBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class CreateProjectActivity : AppCompatActivity() {
     private lateinit var binding : ActivityCreateProjectBinding
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateProjectBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
 
         binding.createProjectButton.setOnClickListener {
             //if the fields are populated, create a Project object
@@ -23,19 +29,19 @@ class CreateProjectActivity : AppCompatActivity() {
 
             if (projectName.isNotEmpty() && description.isNotEmpty())
             {
+                var uID = auth.currentUser.uid
+
                 //create a project and send to firestore
-                var project = Project(projectName, description)
+                var project = Project(projectName, description, uID, ArrayList())
 
                 //connect to Firebase-Firestore
                 //if the collection doesn't exist, it will add it
                 //if the collection exists, it will access it
                 val db = FirebaseFirestore.getInstance().collection("projects")
 
-                //save the project as a document
-                val id = db.document().id
-                project.id = id
+                var documentId = projectName+"-"+uID
 
-                db.document().set(project)
+                db.document(documentId).set(project)
                     .addOnSuccessListener {
                         Toast.makeText(this,"DB Updated",Toast.LENGTH_LONG).show()
                         binding.projectNameEditText.text.clear()
