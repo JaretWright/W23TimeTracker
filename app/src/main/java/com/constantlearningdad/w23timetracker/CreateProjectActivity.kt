@@ -32,7 +32,7 @@ class CreateProjectActivity : AppCompatActivity() {
                 val db = FirebaseFirestore.getInstance().collection("projects")
 
                 //save the project as a document
-                val id = db.document().getId()
+                val id = db.document().id
                 project.id = id
 
                 db.document().set(project)
@@ -48,6 +48,7 @@ class CreateProjectActivity : AppCompatActivity() {
                                 Log.i("Firestore","${document.id}=>${document.data}")
                             }
                         }
+                            .addOnFailureListener{}
 
                     }
                     .addOnFailureListener { exception -> Log.w("DB_Issue",exception.localizedMessage) }
