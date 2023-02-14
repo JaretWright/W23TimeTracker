@@ -2,8 +2,10 @@
 <android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/project_selector"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:layout_margin="@dimen/stdmargin"
     android:clickable="true"
     android:focusable="true">
 
