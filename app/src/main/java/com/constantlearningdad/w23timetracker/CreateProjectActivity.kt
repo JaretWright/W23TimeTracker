@@ -3,6 +3,7 @@ package com.constantlearningdad.w23timetracker
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.constantlearningdad.w23timetracker.databinding.ActivityCreateProjectBinding
@@ -69,8 +70,14 @@ class CreateProjectActivity : AppCompatActivity() {
         //This will be used to connect the RecyclerView, adapeter and viewModel together
         val viewModel : ProjectViewModel by viewModels()
         viewModel.getProjects().observe(this, {
+            binding.linearLayout.removeAllViews()
             for (project in it)
+            {
                 Log.i("DB_Response","CreateProjectActivity: $project")
+                val textView = TextView(this)
+                textView.text = project.projectName
+                binding.linearLayout.addView(textView)
+            }
         })
     }
 }

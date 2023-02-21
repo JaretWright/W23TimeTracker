@@ -9,7 +9,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
-class SigininActivity : AppCompatActivity() {
+class SigninActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class SigininActivity : AppCompatActivity() {
             // response.getError().getErrorCode() and handle the error.
             // ...
             Toast.makeText(this, "Signin Failed",Toast.LENGTH_LONG).show()
-            startActivity(Intent(this,SigininActivity::class.java))
+            startActivity(Intent(this,SigninActivity::class.java))
         }
     }
 }
