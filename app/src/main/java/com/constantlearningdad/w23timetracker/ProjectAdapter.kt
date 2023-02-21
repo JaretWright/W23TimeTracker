@@ -8,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class ProjectAdapter (val context : Context,
-                      val projects : List<Project>) : RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>(){
+                      val projects : List<Project>,
+                      val itemListener : ProjectItemListener): RecyclerView.Adapter<ProjectAdapter.ProjectViewHolder>(){
 
     /**
      * This class is used to allow us to connect / access the elements in the item_project layout file
@@ -38,6 +39,9 @@ class ProjectAdapter (val context : Context,
         with (viewHolder){
             projectTextView.text = project.projectName
             descriptionTextView.text = project.description
+            itemView.setOnClickListener {
+                itemListener.projectSelected(project)
+            }
         }
     }
 
@@ -45,5 +49,11 @@ class ProjectAdapter (val context : Context,
         return projects.size
     }
 
+    /**
+     * Create a custom interface so that we know all Projects in this adapter are able to be selected
+     */
+    interface ProjectItemListener{
+        fun projectSelected(project : Project)
+    }
 
 }

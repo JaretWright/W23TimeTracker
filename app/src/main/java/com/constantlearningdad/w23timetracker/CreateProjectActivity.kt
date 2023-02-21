@@ -12,7 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-class CreateProjectActivity : AppCompatActivity() {
+class CreateProjectActivity : AppCompatActivity(), ProjectAdapter.ProjectItemListener {
     private lateinit var binding : ActivityCreateProjectBinding
     private lateinit var auth : FirebaseAuth
 
@@ -70,14 +70,11 @@ class CreateProjectActivity : AppCompatActivity() {
         //This will be used to connect the RecyclerView, adapeter and viewModel together
         val viewModel : ProjectViewModel by viewModels()
         viewModel.getProjects().observe(this, {
-            binding.linearLayout.removeAllViews()
-            for (project in it)
-            {
-                Log.i("DB_Response","CreateProjectActivity: $project")
-                val textView = TextView(this)
-                textView.text = project.projectName
-                binding.linearLayout.addView(textView)
-            }
+            binding.recyclerView.adapter = ProjectAdapter(this,it,this)
         })
+    }
+
+    override fun projectSelected(project: Project) {
+        Log.i("Project_Selected", "$project")
     }
 }
