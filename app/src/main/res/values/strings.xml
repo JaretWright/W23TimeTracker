@@ -3,4 +3,12 @@
     <string name="enter_description">Enter Description</string>
     <string name="enter_project_name">Enter Project Name</string>
     <string name="create_project">Create Project</string>
+    <string-array name="categories">
+        <item>Choose Category</item>
+        <item>Research</item>
+        <item>Design</item>
+        <item>Development</item>
+        <item>Testing</item>
+        <item>Other</item>
+    </string-array>
 </resources>

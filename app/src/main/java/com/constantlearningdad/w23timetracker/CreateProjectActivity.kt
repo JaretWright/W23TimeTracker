@@ -1,5 +1,6 @@
 package com.constantlearningdad.w23timetracker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -76,5 +77,8 @@ class CreateProjectActivity : AppCompatActivity(), ProjectAdapter.ProjectItemLis
 
     override fun projectSelected(project: Project) {
         Log.i("Project_Selected", "$project")
+        var intent = Intent(this, LogTimeActiviy::class.java)
+        intent.putExtra("documentID", project.projectName+"-"+project.uid)
+        startActivity(intent)
     }
 }
