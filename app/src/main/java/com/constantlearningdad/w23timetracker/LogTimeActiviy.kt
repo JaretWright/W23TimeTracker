@@ -42,20 +42,10 @@ class LogTimeActiviy : AppCompatActivity() {
 
         var projectSelected = Project()
 
-        db.whereEqualTo("uid", userID)
-            .orderBy("projectName")
-            .get()
-            .addOnSuccessListener {
-                projects.add(Project(projectName = "Choose a Project"))
-
-                //loop over all the projects returned from Firestore and covert to Project objects
-                for (document in it)
-                {
-                    val project = document.toObject(Project::class.java)
-                    projects.add(project)
-                }
-
-                documentID?.let{
+        val viewModel : ProjectViewModel by viewModels()
+        viewModel.getProjects().observe(this, {
+            projects.addAll(it)
+            documentID?.let{
                     for (project in projects)
                     {
                         var projectIdentifier = project!!.projectName+"-"+project.uid
@@ -65,6 +55,31 @@ class LogTimeActiviy : AppCompatActivity() {
                     binding.projectSpinner.setSelection(projects.indexOf(projectSelected))
             }
             adapter.notifyDataSetChanged()
-        }
+        })
+
+//        db.whereEqualTo("uid", userID)
+//            .orderBy("projectName")
+//            .get()
+//            .addOnSuccessListener {
+//                projects.add(Project(projectName = "Choose a Project"))
+//
+//                //loop over all the projects returned from Firestore and covert to Project objects
+//                for (document in it)
+//                {
+//                    val project = document.toObject(Project::class.java)
+//                    projects.add(project)
+//                }
+//
+//                documentID?.let{
+//                    for (project in projects)
+//                    {
+//                        var projectIdentifier = project!!.projectName+"-"+project.uid
+//                        if (projectIdentifier.equals(documentID))
+//                            projectSelected = project
+//                    }
+//                    binding.projectSpinner.setSelection(projects.indexOf(projectSelected))
+//            }
+//            adapter.notifyDataSetChanged()
+//        }
     }
 }
