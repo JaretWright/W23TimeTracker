@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.constantlearningdad.w23timetracker.databinding.ActivityLogTimeActiviyBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.sql.Time
 
 class LogTimeActiviy : AppCompatActivity() {
     private lateinit var binding : ActivityLogTimeActiviyBinding
@@ -57,29 +60,34 @@ class LogTimeActiviy : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         })
 
-//        db.whereEqualTo("uid", userID)
-//            .orderBy("projectName")
-//            .get()
-//            .addOnSuccessListener {
-//                projects.add(Project(projectName = "Choose a Project"))
-//
-//                //loop over all the projects returned from Firestore and covert to Project objects
-//                for (document in it)
-//                {
-//                    val project = document.toObject(Project::class.java)
-//                    projects.add(project)
-//                }
-//
-//                documentID?.let{
-//                    for (project in projects)
-//                    {
-//                        var projectIdentifier = project!!.projectName+"-"+project.uid
-//                        if (projectIdentifier.equals(documentID))
-//                            projectSelected = project
-//                    }
-//                    binding.projectSpinner.setSelection(projects.indexOf(projectSelected))
-//            }
-//            adapter.notifyDataSetChanged()
-//        }
+        //create variables to store the start, stop and category
+        var startTime : Timestamp? = null
+        var stopTime : Timestamp? = null
+        var category : String? = null
+
+        binding.startButton.setOnClickListener {
+            if (startTime == null)
+            {
+                startTime = Timestamp.now()
+                binding.startTextView.text = startTime!!.toDate().toString()
+            }
+        }
+
+        //setup the stop time button
+        binding.stopButton.setOnClickListener {
+            if (startTime != null && binding.spinner.selectedItemPosition>0)
+            {
+                category = binding.spinner.selectedItem.toString()
+                stopTime = Timestamp.now()
+                binding.stopTextView.text = stopTime!!.toDate().toString()
+
+                //Create a time record
+                val timeRecord = TimeRecord(category,startTime,stopTime)
+            }
+            else
+                Toast.makeText(this,"start time and catgeory are required",Toast.LENGTH_LONG).show()
+        }
+
+
     }
 }
